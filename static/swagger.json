@@ -1,0 +1,190 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/files/upload": {
+            "post": {
+                "operationId": "FilesController_uploadFile",
+                "summary": "Subir un archivo",
+                "description": "Sube un archivo en base 64. Se puede usar este conversor online utilizando el formato JSON de salida para subir correctamente el archivo al servidor https://base64.guru/converter/encode/file",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Tipo de contenido de la solicitud",
+                        "required": true,
+                        "schema": {
+                            "default": "application/json",
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "type": "object",
+                                        "properties": {
+                                            "mime": {
+                                                "type": "string"
+                                            },
+                                            "base64": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/file/{id}": {
+            "get": {
+                "operationId": "FilesReqController_getFileById",
+                "summary": "Obtener archivo por ID",
+                "description": "Obtiene un archivo por su ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del archivo",
+                        "example": "647a69d038e92df93fb8b36a",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Archivo encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Archivo no encontrado"
+                    }
+                },
+                "tags": ["Files"]
+            },
+            "delete": {
+                "operationId": "FileDeleteController_deleteFile",
+                "summary": "Eliminar archivo",
+                "description": "Elimina un archivo por su ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del archivo",
+                        "example": "1647a69d038e92df93fb8b36a",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Archivo eliminado correctamente"
+                    },
+                    "500": {
+                        "description": "Error interno del servidor"
+                    }
+                }
+            }
+        },
+        "/file-category/update/{id}": {
+            "post": {
+                "operationId": "FileUpdateController_updateFile",
+                "summary": "Actualizar archivo solo con otro de su categoria",
+                "description": "Actualiza o reemplaza un archivo por su ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del archivo",
+                        "example": "647a69d038e92df93fb8b36a",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Archivo actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Solicitud inválida"
+                    }
+                },
+                "tags": ["Files"]
+            }
+        },
+        "/file/update/{id}": {
+            "post": {
+                "operationId": "FileUpdateNoCatController_updateFile",
+                "summary": "Actualizar archivo",
+                "description": "Actualiza un archivo por su ID, permitiendo solo reemplazos de la misma categoría",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID del archivo",
+                        "example": "123",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Archivo actualizado correctamente"
+                    },
+                    "400": {
+                        "description": "Error al actualizar el archivo"
+                    }
+                },
+                "tags": ["Files"]
+            }
+        }
+    },
+    "info": {
+        "title": "Files Uploader",
+        "description": "The Files Uploader API",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [
+        {
+            "name": "files",
+            "description": ""
+        }
+    ],
+    "servers": [],
+    "components": {
+        "schemas": {}
+    }
+}
